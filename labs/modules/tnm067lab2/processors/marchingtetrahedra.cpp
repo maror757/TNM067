@@ -76,6 +76,7 @@ MarchingTetrahedra::MarchingTetrahedra()
     });
 }
 
+
 void MarchingTetrahedra::process() {
     auto volume = volume_.getData()->getRepresentation<VolumeRAM>();
     MeshHelper mesh(volume_.getData());
@@ -102,13 +103,19 @@ void MarchingTetrahedra::process() {
 
 				Voxel vxl;
 				int counter = 0;
-				for (int z = 0; z < 2; z++) {
-					for (int y = 0; y < 2; y++) {
-						for (int x = 0; x < 2; x++) {
-							vxl.pos = vec3((pos.x+x)/(dims.x-1), (pos.y + y)/(dims.y - 1), (pos.z +z)/(dims.z-1));
+				for (int z = 0; z < 2; ++z) {
+					for (int y = 0; y < 2; ++y) {
+						for (int x = 0; x < 2; ++x) {
+							/*vxl.pos = vec3((pos.x+x)/(dims.x-1), (pos.y + y)/(dims.y - 1), (pos.z +z)/(dims.z-1));					
 							size3_t idx = { (pos.x + x) / (dims.x - 1), (pos.y + y) / (dims.y - 1), (pos.z + z) / (dims.z - 1) };
-							vxl.value = volume->getAsDouble(idx);
 							vxl.index = index(idx);
+							vxl.value = volume->getAsDouble(vxl.pos);*/
+
+							vec3 globalPos (pos.x + x , pos.y + y , pos.z + z);
+							vxl.pos = vec3(globalPos.x / (dims.x-1), globalPos.y / (dims.y - 1), globalPos.z / (dims.z - 1));
+							vxl.index = index(globalPos);
+							vxl.value = volume->getAsDouble(globalPos);	
+
 							c.voxels[counter] = vxl;
 							counter++;
 						}
@@ -118,15 +125,14 @@ void MarchingTetrahedra::process() {
 
                 // Step 2: Subdivide cell into tetrahedra (hint: use tetrahedraIds)
                 std::vector<Tetrahedra> tetrahedras;
+				Tetrahedra th;
 				for (size_t i = 0; i < 6; i++) // i < tetrahedraIds.length
 				{
-					Tetrahedra th;
 					for (size_t j = 0; j < 4; j++)
 					{
 						th.voxels[j] = c.voxels[tetrahedraIds[i][j]];
 					}
 					tetrahedras.push_back(th);
-
 				}
 				
 
@@ -138,21 +144,177 @@ void MarchingTetrahedra::process() {
 					Voxel v1 = tetrahedra.voxels[1];
 					Voxel v2 = tetrahedra.voxels[2];
 					Voxel v3 = tetrahedra.voxels[3];
-					
+
 					int caseId = 0;
 					
-					if (v0.value < iso) caseId = 0;
-				//TODO:: SKAPA SWITCH CASE FÖR VARJE FALL (0 OCH 15 är samma case t.ex.) SE FIGURE 8
- 
+					if (v0.value < iso) caseId += 1;
+					if (v1.value < iso) caseId += 2;
+					if (v2.value < iso) caseId += 4;
+					if (v3.value < iso) caseId += 8;
+
+					vec3 ipol0, ipol1, ipol2, ipol3;
+					size_t idx0 = v0.index;
+					size_t idx1 = v1.index;
+					size_t idx2 = v2.index;
+					size_t idx3 = v3.index;
+					
+					
+					switch (caseId)
+					{
+
+					case 0: case 15:
+						break;
+
+					case 1: case 14: {
+
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v0.pos + (v1.pos - v0.pos) * (iso - v0.value) / (v1.value - v0.value); //0-1
+						ipol1 = v0.pos + (v3.pos - v0.pos) * (iso - v0.value) / (v3.value - v0.value); //0-3
+						ipol2 = v0.pos + (v2.pos - v0.pos) * (iso - v0.value) / (v2.value - v0.value); //0-2
+
+						idx1 = mesh.addVertex(ipol0, v0.index, v1.index);
+						idx3 = mesh.addVertex(ipol1, v0.index, v3.index);
+						idx2 = mesh.addVertex(ipol2, v0.index, v2.index);
+						if (caseId == 1)
+						{
+							mesh.addTriangle(idx1, idx3, idx2);
+						}
+						else
+							mesh.addTriangle(idx1, idx2, idx3);
+						break;
+					}
+					case 2: case 13: {
+
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v1.pos + (v3.pos - v1.pos) * (iso - v1.value) / (v3.value - v1.value); //1-3
+						ipol1 = v1.pos + (v0.pos - v1.pos) * (iso - v1.value) / (v0.value - v1.value); //1-0
+						ipol2 = v1.pos + (v2.pos - v1.pos) * (iso - v1.value) / (v2.value - v1.value); //1-2
+
+						idx3 = mesh.addVertex(ipol0, v1.index, v3.index);
+						idx0 = mesh.addVertex(ipol1, v1.index, v0.index);
+						idx2 = mesh.addVertex(ipol2, v1.index, v2.index);
+						if (caseId == 2)
+						{
+							mesh.addTriangle(idx3, idx0, idx2);
+						}
+						else
+							mesh.addTriangle(idx3, idx2, idx0);
+
+						break;
+					}
+					case 3: case 12: {
+
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v0.pos + (v3.pos - v0.pos) * (iso - v0.value) / (v3.value - v0.value); //0-3
+						ipol1 = v0.pos + (v2.pos - v0.pos) * (iso - v0.value) / (v2.value - v0.value); //0-2
+						ipol2 = v1.pos + (v2.pos - v1.pos) * (iso - v1.value) / (v2.value - v1.value); //1-2
+						ipol3 = v1.pos + (v3.pos - v1.pos) * (iso - v1.value) / (v3.value - v1.value); //1-3
+
+						idx0 = mesh.addVertex(ipol0, v0.index, v3.index);
+						idx1 = mesh.addVertex(ipol1, v0.index, v2.index);
+						idx2 = mesh.addVertex(ipol2, v1.index, v2.index);
+						idx3 = mesh.addVertex(ipol3, v1.index, v3.index);
+						if (caseId == 3) {
+							mesh.addTriangle(idx0, idx1, idx2);
+							mesh.addTriangle(idx0, idx2, idx3);
+						}
+						else {
+							mesh.addTriangle(idx0, idx3, idx2);
+							mesh.addTriangle(idx0, idx2, idx1);
+						}
+
+						break;
+					}
+					case 4: case 11: {
+
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v2.pos + (v0.pos - v2.pos) * (iso - v2.value) / (v0.value - v2.value); //2-0
+						ipol1 = v2.pos + (v3.pos - v2.pos) * (iso - v2.value) / (v3.value - v2.value); //2-3
+						ipol2 = v2.pos + (v1.pos - v2.pos) * (iso - v2.value) / (v1.value - v2.value); //2-1
+
+						idx0 = mesh.addVertex(ipol0, v2.index, v0.index);
+						idx3 = mesh.addVertex(ipol1, v2.index, v3.index);
+						idx1 = mesh.addVertex(ipol2, v2.index, v1.index);
+
+						if (caseId == 4)
+						{
+							mesh.addTriangle(idx0, idx3, idx1);
+						}
+						else
+							mesh.addTriangle(idx0, idx1, idx3);
+
+						break;
+					}
+					case 5: case 10: {
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v0.pos + (v3.pos - v0.pos) * (iso - v0.value) / (v3.value - v0.value); //0-3
+						ipol1 = v2.pos + (v3.pos - v2.pos) * (iso - v2.value) / (v3.value - v2.value); //2-3
+						ipol2 = v2.pos + (v1.pos - v2.pos) * (iso - v2.value) / (v1.value - v2.value); //2-1
+						ipol3 = v0.pos + (v1.pos - v0.pos) * (iso - v0.value) / (v1.value - v0.value); //0-1
+
+						idx0 = mesh.addVertex(ipol0, v0.index, v3.index);
+						idx1 = mesh.addVertex(ipol1, v2.index, v3.index);
+						idx2 = mesh.addVertex(ipol2, v2.index, v1.index);
+						idx3 = mesh.addVertex(ipol3, v0.index, v1.index);
+						if (caseId == 5) {
+							mesh.addTriangle(idx0, idx1, idx2);
+							mesh.addTriangle(idx0, idx2, idx3);
+						}
+						else {
+							mesh.addTriangle(idx0, idx3, idx2);
+							mesh.addTriangle(idx0, idx2, idx1);
+						}
+
+						break;
+					}
+					case 6: case 9: {
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v0.pos + (v2.pos - v0.pos) * (iso - v0.value) / (v2.value - v0.value); //0-2
+						ipol1 = v0.pos + (v1.pos - v0.pos) * (iso - v0.value) / (v1.value - v0.value); //0-1
+						ipol2 = v1.pos + (v3.pos - v1.pos) * (iso - v1.value) / (v3.value - v1.value); //1-3
+						ipol3 = v2.pos + (v3.pos - v2.pos) * (iso - v2.value) / (v3.value - v2.value); //2-3
+
+						idx0 = mesh.addVertex(ipol0, v0.index, v2.index);
+						idx1 = mesh.addVertex(ipol1, v0.index, v1.index);
+						idx2 = mesh.addVertex(ipol2, v1.index, v3.index);
+						idx3 = mesh.addVertex(ipol3, v2.index, v3.index);
+						if (caseId == 9) {
+							mesh.addTriangle(idx0, idx1, idx2);
+							mesh.addTriangle(idx0, idx2, idx3);
+						}
+						else {
+							mesh.addTriangle(idx0, idx3, idx2);
+							mesh.addTriangle(idx0, idx2, idx1);
+						}
+
+						break;
+					}
+					case 7: case 8: {
+
+						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
+						ipol0 = v3.pos + (v0.pos - v3.pos) * (iso - v3.value) / (v0.value - v3.value); //3-0
+						ipol1 = v3.pos + (v1.pos - v3.pos) * (iso - v3.value) / (v1.value - v3.value); //3-1
+						ipol2 = v3.pos + (v2.pos - v3.pos) * (iso - v3.value) / (v2.value - v3.value); //3-2
+
+						idx0 = mesh.addVertex(ipol0, v3.index, v0.index);
+						idx1 = mesh.addVertex(ipol1, v3.index, v1.index);
+						idx2 = mesh.addVertex(ipol2, v3.index, v2.index);
 
 
-                    
+						if (caseId == 7)
+						{
+							mesh.addTriangle(idx0, idx1, idx2);
+						}
+						else
+							mesh.addTriangle(idx0, idx2, idx1);
 
-                    // step four: Extract triangles
-                }
-            }
-        }
-    }
+						break;
+					}				
+				}
+               }
+           }
+       }
+   }
 
     mesh_.setData(mesh.toBasicMesh());
 }

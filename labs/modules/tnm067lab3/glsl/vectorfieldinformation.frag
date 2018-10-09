@@ -40,19 +40,43 @@ float passThrough(vec2 coord){
 
 float magnitude( vec2 coord ){
     //TODO find the magnitude of the vectorfield at the position coords
-    return 0.0;
+	vec2 velo = texture2D(vfColor, coord).xy;
+    float mag = sqrt(velo.x * velo.x + velo.y * velo.y);
+	return mag;
 }
 
 float divergence(vec2 coord){
     //TODO find the divergence of the vectorfield at the position coords
 	vec2 pixelSize = vfParameters.reciprocalDimensions;
-    return 0.0;
+	vec2 velo = texture2D(vfColor, coord).xy;
+
+	vec2 v1x = texture2D(vfColor, vec2(coord.x + pixelSize.x , coord.y)).xy;
+	vec2 v2x = texture2D(vfColor, vec2(coord.x - pixelSize.x , coord.y)).xy;
+	vec2 dVdx = (v1x - v2x ) / 2*pixelSize.x;
+
+	vec2 v1y = texture2D(vfColor, vec2(coord.x , coord.y + pixelSize.y )).xy;
+	vec2 v2y = texture2D(vfColor, vec2(coord.x , coord.y  - pixelSize.y)).xy;
+	vec2 dVdy = (v1y - v2y ) / 2*pixelSize.y;
+
+
+    return dVdx.x + dVdy.y;
 }
 
 float rotation(vec2 coord){
     //TODO find the curl of the vectorfield at the position coords
     vec2 pixelSize = vfParameters.reciprocalDimensions;
-    return 0.0;
+	vec2 velo = texture2D(vfColor, coord).xy;
+
+	vec2 v1x = texture2D(vfColor, vec2(coord.x + pixelSize.x , coord.y)).xy;
+	vec2 v2x = texture2D(vfColor, vec2(coord.x - pixelSize.x , coord.y)).xy;
+	vec2 dVdx = (v1x - v2x ) / 2*pixelSize.x;
+
+	vec2 v1y = texture2D(vfColor, vec2(coord.x , coord.y + pixelSize.y )).xy;
+	vec2 v2y = texture2D(vfColor, vec2(coord.x , coord.y  - pixelSize.y)).xy;
+	vec2 dVdy = (v1y - v2y ) / 2*pixelSize.y;
+
+
+    return dVdx.y - dVdy.x;
 }
 
 

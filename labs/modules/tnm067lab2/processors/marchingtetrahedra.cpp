@@ -106,13 +106,9 @@ void MarchingTetrahedra::process() {
 				for (int z = 0; z < 2; ++z) {
 					for (int y = 0; y < 2; ++y) {
 						for (int x = 0; x < 2; ++x) {
-							/*vxl.pos = vec3((pos.x+x)/(dims.x-1), (pos.y + y)/(dims.y - 1), (pos.z +z)/(dims.z-1));					
-							size3_t idx = { (pos.x + x) / (dims.x - 1), (pos.y + y) / (dims.y - 1), (pos.z + z) / (dims.z - 1) };
-							vxl.index = index(idx);
-							vxl.value = volume->getAsDouble(vxl.pos);*/
 
 							vec3 globalPos (pos.x + x , pos.y + y , pos.z + z);
-							vxl.pos = vec3(globalPos.x / (dims.x-1), globalPos.y / (dims.y - 1), globalPos.z / (dims.z - 1));
+							vxl.pos = vec3(globalPos.x / (dims.x - 1), globalPos.y / (dims.y - 1), globalPos.z / (dims.z - 1));
 							vxl.index = index(globalPos);
 							vxl.value = volume->getAsDouble(globalPos);	
 
@@ -126,7 +122,7 @@ void MarchingTetrahedra::process() {
                 // Step 2: Subdivide cell into tetrahedra (hint: use tetrahedraIds)
                 std::vector<Tetrahedra> tetrahedras;
 				Tetrahedra th;
-				for (size_t i = 0; i < 6; i++) // i < tetrahedraIds.length
+				for (size_t i = 0; i < 6; i++)
 				{
 					for (size_t j = 0; j < 4; j++)
 					{
@@ -185,7 +181,6 @@ void MarchingTetrahedra::process() {
 					}
 					case 2: case 13: {
 
-						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
 						ipol0 = v1.pos + (v3.pos - v1.pos) * (iso - v1.value) / (v3.value - v1.value); //1-3
 						ipol1 = v1.pos + (v0.pos - v1.pos) * (iso - v1.value) / (v0.value - v1.value); //1-0
 						ipol2 = v1.pos + (v2.pos - v1.pos) * (iso - v1.value) / (v2.value - v1.value); //1-2
@@ -204,7 +199,6 @@ void MarchingTetrahedra::process() {
 					}
 					case 3: case 12: {
 
-						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
 						ipol0 = v0.pos + (v3.pos - v0.pos) * (iso - v0.value) / (v3.value - v0.value); //0-3
 						ipol1 = v0.pos + (v2.pos - v0.pos) * (iso - v0.value) / (v2.value - v0.value); //0-2
 						ipol2 = v1.pos + (v2.pos - v1.pos) * (iso - v1.value) / (v2.value - v1.value); //1-2
@@ -227,7 +221,6 @@ void MarchingTetrahedra::process() {
 					}
 					case 4: case 11: {
 
-						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
 						ipol0 = v2.pos + (v0.pos - v2.pos) * (iso - v2.value) / (v0.value - v2.value); //2-0
 						ipol1 = v2.pos + (v3.pos - v2.pos) * (iso - v2.value) / (v3.value - v2.value); //2-3
 						ipol2 = v2.pos + (v1.pos - v2.pos) * (iso - v2.value) / (v1.value - v2.value); //2-1
@@ -246,7 +239,6 @@ void MarchingTetrahedra::process() {
 						break;
 					}
 					case 5: case 10: {
-						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
 						ipol0 = v0.pos + (v3.pos - v0.pos) * (iso - v0.value) / (v3.value - v0.value); //0-3
 						ipol1 = v2.pos + (v3.pos - v2.pos) * (iso - v2.value) / (v3.value - v2.value); //2-3
 						ipol2 = v2.pos + (v1.pos - v2.pos) * (iso - v2.value) / (v1.value - v2.value); //2-1
@@ -268,7 +260,6 @@ void MarchingTetrahedra::process() {
 						break;
 					}
 					case 6: case 9: {
-						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
 						ipol0 = v0.pos + (v2.pos - v0.pos) * (iso - v0.value) / (v2.value - v0.value); //0-2
 						ipol1 = v0.pos + (v1.pos - v0.pos) * (iso - v0.value) / (v1.value - v0.value); //0-1
 						ipol2 = v1.pos + (v3.pos - v1.pos) * (iso - v1.value) / (v3.value - v1.value); //1-3
@@ -291,7 +282,6 @@ void MarchingTetrahedra::process() {
 					}
 					case 7: case 8: {
 
-						// value = origin + dir * dist	// dist = (iso - min) / (max - min)
 						ipol0 = v3.pos + (v0.pos - v3.pos) * (iso - v3.value) / (v0.value - v3.value); //3-0
 						ipol1 = v3.pos + (v1.pos - v3.pos) * (iso - v3.value) / (v1.value - v3.value); //3-1
 						ipol2 = v3.pos + (v2.pos - v3.pos) * (iso - v3.value) / (v2.value - v3.value); //3-2
@@ -303,10 +293,10 @@ void MarchingTetrahedra::process() {
 
 						if (caseId == 7)
 						{
-							mesh.addTriangle(idx0, idx1, idx2);
+							mesh.addTriangle(idx0, idx2, idx1);
 						}
 						else
-							mesh.addTriangle(idx0, idx2, idx1);
+							mesh.addTriangle(idx0, idx1, idx2);
 
 						break;
 					}				

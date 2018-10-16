@@ -267,11 +267,6 @@
                     <Processor content="org.inviwo.VectorFieldInformation" />
                 </Processors>
             </Module>
-            <Module name="TNM067Lab4" version="0">
-                <Processors>
-                    <Processor content="org.inviwo.TNM067GlyphRenderer" />
-                </Processors>
-            </Module>
         </Modules>
     </InviwoSetup>
     <ProcessorNetwork>
@@ -298,7 +293,7 @@
                 </Properties>
                 <MetaDataMap>
                     <MetaDataItem type="org.inviwo.ProcessorMetaData" key="org.inviwo.ProcessorMetaData">
-                        <position x="-350" y="-225" />
+                        <position x="-325" y="-150" />
                         <visibility content="1" />
                         <selection content="0" />
                     </MetaDataItem>
@@ -446,7 +441,7 @@
                 </Properties>
                 <MetaDataMap>
                     <MetaDataItem type="org.inviwo.ProcessorMetaData" key="org.inviwo.ProcessorMetaData">
-                        <position x="-325" y="-300" />
+                        <position x="-325" y="-225" />
                         <visibility content="1" />
                         <selection content="0" />
                     </MetaDataItem>
@@ -530,10 +525,10 @@
                     <PortGroup content="default" key="outport" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.inport" identifier="inport" id="ref16" />
+                    <InPort type="org.inviwo.Image.inport" identifier="inport" id="ref9" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref17" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref10" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.OptionPropertyEnumInt" identifier="backgroundStyle">
@@ -567,10 +562,10 @@
                     <PortGroup content="default" key="vectorFeild" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.inport" identifier="vectorFeild" id="ref9" />
+                    <InPort type="org.inviwo.Image.inport" identifier="vectorFeild" id="ref11" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Mesh.outport" identifier="mesh" id="ref10" />
+                    <OutPort type="org.inviwo.Mesh.outport" identifier="mesh" id="ref12" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.FloatVec4Property" identifier="color" />
@@ -611,21 +606,23 @@
                     <PortGroup content="default" key="vf" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.inport" identifier="vf" id="ref11" />
+                    <InPort type="org.inviwo.Image.inport" identifier="vf" id="ref13" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref12" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref14" />
                 </OutPorts>
                 <Properties>
-                    <Property type="org.inviwo.OptionPropertyEnumInt" identifier="outputType" />
-                    <Property type="org.inviwo.StringProperty" identifier="outputTypeStr" id="ref13">
+                    <Property type="org.inviwo.OptionPropertyEnumInt" identifier="outputType">
+                        <selectedIdentifier content="rotation" />
+                    </Property>
+                    <Property type="org.inviwo.StringProperty" identifier="outputTypeStr" id="ref15">
                         <readonly content="1" />
-                        <value content="Vector pass through" />
+                        <value content="Rotation" />
                     </Property>
                 </Properties>
                 <MetaDataMap>
                     <MetaDataItem type="org.inviwo.ProcessorMetaData" key="org.inviwo.ProcessorMetaData">
-                        <position x="-150" y="-300" />
+                        <position x="-125" y="-175" />
                         <visibility content="1" />
                         <selection content="0" />
                     </MetaDataItem>
@@ -637,10 +634,10 @@
                     <PortGroup content="default" key="outport" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" id="ref14" />
+                    <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" id="ref16" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref15" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref17" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.OptionPropertyEnumInt" identifier="layout" />
@@ -681,7 +678,7 @@
                             </Property>
                             <Property type="org.inviwo.IntVec2Property" identifier="customInputDimensions">
                                 <readonly content="1" />
-                                <value x="948" y="800" />
+                                <value x="1600" y="1600" />
                             </Property>
                             <Property type="org.inviwo.BoolProperty" identifier="keepAspectRatio" />
                             <Property type="org.inviwo.FloatProperty" identifier="aspectRatioScaling">
@@ -691,7 +688,7 @@
                         <collapsed content="0" />
                     </Property>
                     <Property type="org.inviwo.IntVec2Property" identifier="position">
-                        <value x="248" y="772" />
+                        <value x="372" y="300" />
                     </Property>
                     <Property type="org.inviwo.OptionPropertyEnumInt" identifier="visibleLayer" />
                     <Property type="org.inviwo.IntProperty" identifier="colorLayer_">
@@ -737,8 +734,8 @@
                         <selection content="0" />
                     </MetaDataItem>
                     <MetaDataItem type="org.inviwo.ProcessorWidgetMetaData" key="org.inviwo.ProcessorWidgetMetaData">
-                        <position x="248" y="772" />
-                        <dimensions x="474" y="400" />
+                        <position x="372" y="300" />
+                        <dimensions x="800" y="800" />
                         <visibility content="1" />
                     </MetaDataItem>
                 </MetaDataMap>
@@ -900,7 +897,7 @@
                                 <MetaData content="0" />
                             </MetaDataItem>
                         </MetaDataMap>
-                        <value content="Vector pass through" />
+                        <value content="Rotation" />
                     </Property>
                     <Property type="org.inviwo.FloatVec4Property" identifier="color" />
                     <Property type="org.inviwo.FontProperty" identifier="font">
@@ -934,10 +931,10 @@
                     <PortGroup content="default" key="outputImage" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.inport" identifier="inputImage" id="ref30" />
+                    <InPort type="org.inviwo.Image.inport" identifier="inputImage" id="ref28" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outputImage" id="ref31" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outputImage" id="ref29" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.BoolProperty" identifier="normalizeSeparately" />
@@ -963,10 +960,10 @@
                     <PortGroup content="default" key="outputImage" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.inport" identifier="inputImage" id="ref35" />
+                    <InPort type="org.inviwo.Image.inport" identifier="inputImage" id="ref32" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outputImage" id="ref36" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outputImage" id="ref33" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.BoolProperty" identifier="normalizeSeparately" />
@@ -974,15 +971,15 @@
                         <value content="1" />
                     </Property>
                     <Property type="org.inviwo.StringProperty" identifier="min">
-                        <value content="[   -2.968,    0.000,    0.000,    0.000]" />
+                        <value content="[   -0.004,    0.000,    0.000,    0.000]" />
                     </Property>
                     <Property type="org.inviwo.StringProperty" identifier="max">
-                        <value content="[    2.968,    0.000,    0.000,    0.000]" />
+                        <value content="[    0.008,    0.000,    0.000,    0.000]" />
                     </Property>
                 </Properties>
                 <MetaDataMap>
                     <MetaDataItem type="org.inviwo.ProcessorMetaData" key="org.inviwo.ProcessorMetaData">
-                        <position x="-150" y="-200" />
+                        <position x="-125" y="-75" />
                         <visibility content="1" />
                         <selection content="0" />
                     </MetaDataItem>
@@ -994,10 +991,10 @@
                     <PortGroup content="default" key="outputImage" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.inport" identifier="inputImage" id="ref33" />
+                    <InPort type="org.inviwo.Image.inport" identifier="inputImage" id="ref30" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outputImage" id="ref34" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outputImage" id="ref31" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.TransferFunctionProperty" identifier="transferFunction">
@@ -1027,11 +1024,11 @@
                             <Points>
                                 <Point>
                                     <pos content="0" />
-                                    <rgba x="0.57254905" y="0.51641107" z="0.52576488" w="0" />
+                                    <rgba x="0" y="0" z="0" w="0" />
                                 </Point>
                                 <Point>
                                     <pos content="1" />
-                                    <rgba x="0.80784315" y="0.46189058" z="0.066529334" w="1" />
+                                    <rgba x="1" y="0" z="0.2" w="1" />
                                 </Point>
                             </Points>
                         </TransferFunction>
@@ -1039,9 +1036,9 @@
                 </Properties>
                 <MetaDataMap>
                     <MetaDataItem type="org.inviwo.ProcessorMetaData" key="org.inviwo.ProcessorMetaData">
-                        <position x="-150" y="-100" />
+                        <position x="-125" y="0" />
                         <visibility content="1" />
-                        <selection content="1" />
+                        <selection content="0" />
                     </MetaDataItem>
                 </MetaDataMap>
             </Processor>
@@ -1050,7 +1047,7 @@
                     <PortGroup content="default" key="data" />
                 </PortGroups>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Volume.outport" identifier="data" id="ref32" />
+                    <OutPort type="org.inviwo.Volume.outport" identifier="data" id="ref34" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.FileProperty" identifier="filename">
@@ -1246,10 +1243,10 @@
                     <PortGroup content="default" key="outport" />
                 </PortGroups>
                 <InPorts>
-                    <InPort type="org.inviwo.Image.multi.inport" identifier="inport" id="ref28" />
+                    <InPort type="org.inviwo.Image.multi.inport" identifier="inport" id="ref35" />
                 </InPorts>
                 <OutPorts>
-                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref29" />
+                    <OutPort type="org.inviwo.Image.outport" identifier="outport" id="ref36" />
                 </OutPorts>
                 <Properties>
                     <Property type="org.inviwo.OptionPropertyInt" identifier="selectedPort">
@@ -1369,16 +1366,12 @@
         </Processors>
         <Connections>
             <Connection>
-                <OutPort type="org.inviwo.Mesh.outport" identifier="mesh" reference="ref10" />
+                <OutPort type="org.inviwo.Mesh.outport" identifier="mesh" reference="ref12" />
                 <InPort type="org.inviwo.Mesh.flat.multi.inport" identifier="inputMesh" reference="ref5" />
             </Connection>
             <Connection>
                 <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref6" />
-                <InPort type="org.inviwo.Image.inport" identifier="inport" reference="ref16" />
-            </Connection>
-            <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="noise" reference="ref1" />
-                <InPort type="org.inviwo.Image.inport" identifier="noise" reference="ref3" />
+                <InPort type="org.inviwo.Image.inport" identifier="inport" reference="ref9" />
             </Connection>
             <Connection>
                 <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref8" />
@@ -1389,7 +1382,7 @@
                 <InPort type="org.inviwo.Image.inport" identifier="inport" reference="ref21" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref15" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref17" />
                 <InPort type="org.inviwo.Image.inport" identifier="inport" reference="ref7" />
             </Connection>
             <Connection>
@@ -1401,70 +1394,74 @@
                 <InPort type="org.inviwo.Image.inport" identifier="inport" reference="ref18" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref12" />
-                <InPort type="org.inviwo.Image.inport" identifier="inputImage" reference="ref35" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref14" />
+                <InPort type="org.inviwo.Image.inport" identifier="inputImage" reference="ref32" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Volume.outport" identifier="data" reference="ref32" />
+                <OutPort type="org.inviwo.Volume.outport" identifier="data" reference="ref34" />
                 <InPort type="org.inviwo.Volume.inport" identifier="inputVolume" reference="ref26" />
             </Connection>
             <Connection>
                 <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref27" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="inport" reference="ref28" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="inport" reference="ref35" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref29" />
-                <InPort type="org.inviwo.Image.inport" identifier="vectorFeild" reference="ref9" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref36" />
+                <InPort type="org.inviwo.Image.inport" identifier="vectorFeild" reference="ref11" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref29" />
-                <InPort type="org.inviwo.Image.inport" identifier="inputImage" reference="ref30" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref36" />
+                <InPort type="org.inviwo.Image.inport" identifier="inputImage" reference="ref28" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref29" />
-                <InPort type="org.inviwo.Image.inport" identifier="vf" reference="ref11" />
-            </Connection>
-            <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref29" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref36" />
                 <InPort type="org.inviwo.Image.inport" identifier="vf" reference="ref2" />
             </Connection>
             <Connection>
                 <OutPort type="org.inviwo.Image.outport" identifier="vectorField" reference="ref0" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="inport" reference="ref28" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="inport" reference="ref35" />
             </Connection>
             <Connection>
                 <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref37" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="inport" reference="ref28" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="inport" reference="ref35" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref31" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref14" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref29" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref16" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref17" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref14" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref10" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref16" />
             </Connection>
             <Connection>
                 <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref4" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref14" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref16" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref36" />
-                <InPort type="org.inviwo.Image.inport" identifier="inputImage" reference="ref33" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref33" />
+                <InPort type="org.inviwo.Image.inport" identifier="inputImage" reference="ref30" />
             </Connection>
             <Connection>
-                <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref34" />
-                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref14" />
+                <OutPort type="org.inviwo.Image.outport" identifier="outputImage" reference="ref31" />
+                <InPort type="org.inviwo.Image.multi.inport" identifier="multiinport" reference="ref16" />
+            </Connection>
+            <Connection>
+                <OutPort type="org.inviwo.Image.outport" identifier="noise" reference="ref1" />
+                <InPort type="org.inviwo.Image.inport" identifier="noise" reference="ref3" />
+            </Connection>
+            <Connection>
+                <OutPort type="org.inviwo.Image.outport" identifier="outport" reference="ref36" />
+                <InPort type="org.inviwo.Image.inport" identifier="vf" reference="ref13" />
             </Connection>
         </Connections>
         <PropertyLinks>
             <PropertyLink>
-                <SourceProperty type="org.inviwo.StringProperty" identifier="outputTypeStr" reference="ref13" />
+                <SourceProperty type="org.inviwo.StringProperty" identifier="outputTypeStr" reference="ref15" />
                 <DestinationProperty type="org.inviwo.StringProperty" identifier="text" reference="ref25" />
             </PropertyLink>
             <PropertyLink>
                 <SourceProperty type="org.inviwo.StringProperty" identifier="text" reference="ref25" />
-                <DestinationProperty type="org.inviwo.StringProperty" identifier="outputTypeStr" reference="ref13" />
+                <DestinationProperty type="org.inviwo.StringProperty" identifier="outputTypeStr" reference="ref15" />
             </PropertyLink>
         </PropertyLinks>
     </ProcessorNetwork>

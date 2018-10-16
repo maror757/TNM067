@@ -44,9 +44,20 @@ in vec3 texCoord_;
 * @param c the number of samples used for v
 *
 */
-void traverse(vec2 posF , float stepSize,int steps , inout  float v , inout int c){
-    // traverse the vectorfield staring at `posF for `steps` with using `stepSize` and sample the noiseColor texture for each position
-    // store the accumulated value in v and the amount of samples in c
+void traverse(vec2 posF , float stepSize,int steps , inout float v , inout int c){
+    // traverse the vectorfield staring at `posF for `steps` with using `stepSize` and sample the noiseColor 
+	//texture for each position. Store the accumulated value in v and the amount of samples in c
+	vec2 pos = posF;
+
+	
+	
+	c+=steps;
+	for(int i = 0; i<steps; i++)
+	{
+	v+= texture2D(noiseColor, pos).r;
+	pos += normalize(texture2D(vfColor, pos).xy) * stepSize;
+	}
+	
 }
 
 
@@ -55,6 +66,10 @@ void main(void) {
     int c = 1;
     
     //traverse the vector field both forward and backwards to calculate the output color
-
+	traverse(texCoord_.xy, stepSize, steps, v, c); //Forward
+	traverse(texCoord_.xy, -stepSize, steps, v, c); //Backward
+	
+	v /= c;
+	
     FragData0 = vec4(v,v,v,1);
 }
